@@ -23,8 +23,6 @@ public class Business
             if(employeeNumber%n == 0){
                 downsizeIterator.remove(); 
             }
-            
-
         }
             System.out.println(employeeNames);
         }
