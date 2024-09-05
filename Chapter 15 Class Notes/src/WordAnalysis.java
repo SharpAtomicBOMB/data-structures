@@ -1,10 +1,9 @@
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
 import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.Iterator;
 /**
  * This program checks which words in a file are not present in a dictionary.
 */
@@ -12,7 +11,27 @@ public class WordAnalysis
 {
     public static void main(String[] args)
         throws FileNotFoundException
+
     {
+        //read the disrectory file and the novel file
+        Set<String> dictionaryWords = readWords("Chapter 15 Class Notes/src/words");
+        Set<String> novelWords = readWords("Chapter 15 Class Notes/src/war-and-peace.txt");
+        //print all the words that are in the novel but not dictionary
+        for(String word:novelWords){
+            if(!dictionaryWords.contains(word)){
+                System.out.println(word);
+            }
+        }
+        //print out the number of unique words in the novel
+        System.out.println("There are "+novelWords.size()+" unique words in the novel");
+        // print the number of unique words with more than three letters
+        Iterator <String> iterator = novelWords.iterator();
+        while(iterator.hasNext()){
+            if (iterator.next().length() <= 3){
+                iterator.remove();
+            }
+        }
+        System.out.println("There are "+novelWords.size()+" unique words with more than three letters in the novel");
     }
 
     /**
@@ -25,6 +44,18 @@ public class WordAnalysis
     public static Set<String> readWords(String filename)
         throws FileNotFoundException
     {
-        return null;
+        //we use a hashset instead of a tree set because the order doesn't matter in this case
+        Set<String> words = new HashSet<>();
+        //Determine current working directory
+        //System.out.println(System.getProperty("user.dir"));
+        Scanner in = new Scanner(new File(filename),"UTF-8");
+        //use any character thats not a letter as a delimiter
+        in.useDelimiter("[^a-zA-Z]+");
+        while(in.hasNext()){
+            // Add words to the set and duplicates are automatically ignored.
+            words.add(in.next().toLowerCase());
+
+        }
+        return words;
     }
 }

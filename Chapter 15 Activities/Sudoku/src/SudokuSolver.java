@@ -37,6 +37,8 @@ public class SudokuSolver {
 
         // create the list of sets for each row (this.rows)
         // ...
+        ArrayList<int> 
+
 
         // create the list of sets for each col (this.cols)
         // ...
