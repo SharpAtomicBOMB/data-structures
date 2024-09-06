@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class SudokuSolver {
@@ -37,8 +38,15 @@ public class SudokuSolver {
 
         // create the list of sets for each row (this.rows)
         // ...
-        ArrayList<int> 
 
+        for (int i = 0; i < N; i++) {
+            this.rows.add(new TreeSet<>());
+            this.cols.add(new TreeSet<>());
+            this.squares.add(new TreeSet<>());
+        }
+        System.out.println(this.rows);
+        System.out.println(this.cols);
+        System.out.println(this.squares);
 
         // create the list of sets for each col (this.cols)
         // ...
@@ -143,8 +151,8 @@ public class SudokuSolver {
     }
 
     public static void main(String[] args) {
-        String fileName = "src/puzzle1.txt";
-
+        String fileName = "Chapter 15 Activites/src/puzzle1.txt";
+        System.out.println(System.getProperty("user.dir"));
         SudokuSolver solver = new SudokuSolver(fileName);
         System.out.println(solver);
         if (solver.solve()) {
