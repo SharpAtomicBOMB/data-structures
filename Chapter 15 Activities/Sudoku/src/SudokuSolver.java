@@ -35,22 +35,37 @@ public class SudokuSolver {
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open: " + fileName);
         }
-
+        for (int i = 0; i< grid.length;i++)
+        {
+            for(int j = 0 ;j < grid[0].length;j++){
+                    System.out.print(grid[i][j]+ " ");
+            }    
+            System.out.println();
+        }  
         // create the list of sets for each row (this.rows)
         // ...
 
-        for (int i = 0; i < N; i++) {
-            this.rows.add(new TreeSet<>());
-            this.cols.add(new TreeSet<>());
-            this.squares.add(new TreeSet<>());
-        }
-        System.out.println(this.rows);
-        System.out.println(this.cols);
-        System.out.println(this.squares);
+        this.rows = new ArrayList<>();
+        for (int i = 0; i< grid.length;i++)
+        {
+            Set<Integer> row = new TreeSet<>();
+            for(int j = 0 ;j < grid[0].length;j++){
+                    row.add(grid[i][j]);
+            }    
+            this.rows.add(row);
+        }  
 
         // create the list of sets for each col (this.cols)
         // ...
-
+        this.cols = new ArrayList<>();
+        for (int i = 0; i< grid.length;i++)
+        {
+            Set<Integer> col = new TreeSet<>();
+            for(int j = 0 ;j < grid[0].length;j++){
+                    col.add(grid[j][i]);
+            }    
+            this.cols.add(col);
+        }  
         // create the list of sets for each square (this.squares)
         /* the squares are added to the list row-by-row:
             0 1 2
@@ -58,7 +73,18 @@ public class SudokuSolver {
             6 7 8
          */
         // ...
-
+        this.squares = new ArrayList<>();
+        for (int sq = 0; sq<3 ;sq++){
+          for (int i = 0; i< grid.length;i+=3)
+          {
+            Set<Integer> col = new TreeSet<>();
+            for(int j = sq ;j < grid[0].length/3;j++){
+                System.out.println(grid[j][i]);
+                    col.add(grid[j][i]);
+            }    
+            this.squares.add(col);
+          }  
+        }
         // create a hash set for [1..9] (this.nums)
         // ...
 
@@ -151,7 +177,7 @@ public class SudokuSolver {
     }
 
     public static void main(String[] args) {
-        String fileName = "Chapter 15 Activites/src/puzzle1.txt";
+        String fileName = "Chapter 15 Activities/Sudoku/src/puzzle1.txt";
         System.out.println(System.getProperty("user.dir"));
         SudokuSolver solver = new SudokuSolver(fileName);
         System.out.println(solver);
