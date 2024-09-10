@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class SudokuSolver {
@@ -131,9 +130,9 @@ public class SudokuSolver {
             algorithm is correct.
          */
         Set<Integer> possibleNums = new HashSet<Integer>();
-        possibleNums.addAll(this.nums);
-        
-        // ...
+        possibleNums.removeAll(this.rows.get(nextRow));
+        possibleNums.removeAll(this.cols.get(nextCol));
+        possibleNums.removeAll(this.squares.get(nextRow/M*M+nextCol/M));
 
         // if there are no possible numbers, we cannot solve the board in its current state
         if (possibleNums.isEmpty()) {
@@ -143,11 +142,13 @@ public class SudokuSolver {
         // try each possible number
         for (Integer possibleNum : possibleNums) {
             // update the grid and all three corresponding sets with possibleNum
-            // ...
+            this.grid[nextRow][nextCol] = possibleNum;
+            this.rows.get(nextRow).add(possibleNum);
+            this.cols.get(nextCol).add(possibleNum);
+            this.squares.get(nextRow/M*M+nextCol/M).add(possibleNum);
 
-            // recursively solve the board
             if (this.solve()) {
-                // the board is solved!
+                
                 return true;
             } else {
                 /*
@@ -155,7 +156,11 @@ public class SudokuSolver {
                  element in the grid back to 0 and removing possibleNum from all three corresponding
                  sets.
                  */
-                // ...
+                this.grid[nextRow][nextCol]=0;
+                this.rows.get(nextRow).remove(possibleNum);
+                this.cols.get(nextCol).remove(possibleNum);
+                this.squares.get(nextRow/M*M+nextCol/M).remove(possibleNum);
+
             }
         }
 
