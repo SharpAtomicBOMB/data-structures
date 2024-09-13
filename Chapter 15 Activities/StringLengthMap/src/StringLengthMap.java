@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 /**
  * Read all words from a file and add them to a
  * map whose keys are word lengths and whose values
@@ -18,7 +18,8 @@ public class StringLengthMap
         {
 
             // Create your map here
-            
+            Map<Integer,String> maplength = new HashMap<>();
+
 
             while (in.hasNext())
             {
@@ -27,8 +28,6 @@ public class StringLengthMap
 
                 // Update the map here
                 // Modify Worked Example 15.1
-                
-
 
             }
 
