@@ -12,14 +12,13 @@ public class FirstLetterMap
 {
     public static void main(String[] args)
     {
-        String filename = "src/test1.txt";
+        String filename = "Chapter 15 Activities/FirstLetterMap/FirstLetterMap2/src/test1.txt";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
 
             // Create your map here
-            ...
-
+            Map<Character, Set> mapfirst = new HashMap<>(); 
             while (in.hasNext())
             {
                 String word = clean(in.next());
@@ -27,14 +26,35 @@ public class FirstLetterMap
 
                 // Update the map here
                 // Modify Worked Example 15.1
-                . . .
+                //different than map1 obv, uses if statements
+                if(mapfirst.get(c) == null){
+                    Set<String> temporary = new HashSet<>();
+                    temporary.add(word);
+                    mapfirst.put(c,temporary);
+                }
+                else{
+                    Set<String> temporary = mapfirst.get(c);
+                    temporary.add(word);
+                    mapfirst.put(c,temporary);
+                }
 
 
             }
+            //basically same as Map1 stuff
+            ArrayList<Character> arr1 = new ArrayList<>();
+            Set<Character> z = mapfirst.keySet();
+            for(char i:z){
+                arr1.add(i);
+            }
+            Collections.sort(arr1);
+
+
 
             // Print the map here in this form
             // a: [a, able, aardvark]
-            . . .
+            for(Character i: arr1){
+                System.out.println(i+" "+mapfirst.get(i));
+            }
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);

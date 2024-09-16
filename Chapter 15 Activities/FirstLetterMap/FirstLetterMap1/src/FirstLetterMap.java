@@ -12,14 +12,14 @@ public class FirstLetterMap
 {
     public static void main(String[] args)
     {
-        String filename = "src/test1.txt";
+        String filename = "Chapter 15 Activities/FirstLetterMap/FirstLetterMap2/src/test1.txt";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
 
             // Create your map here
-            Map<Character,String> mapfirst = new HashMap<Character,String>();
-            ArrayList<String> arr1 = new ArrayList<String>();
+            Map<Character,Set<String>> mapfirst = new HashMap<>();
+            
 
             while (in.hasNext())
             {
@@ -28,13 +28,22 @@ public class FirstLetterMap
 
                 // Update the map here
                 // Use the Java 8 merge method
-                mapfirst.merge(c, word, (v1, v2) -> mapfirst.get(v1).add(v2));
+                Set<String> val_word = new HashSet<>();
+                val_word.add(word);
+                mapfirst.merge(c, val_word, (v1, v2) -> {v1.addAll(v2); return v1;});
                 
             }
-
+            ArrayList<Character> arr1 = new ArrayList<Character>();
+            Set<Character> z = mapfirst.keySet();
+            for(char i:z){
+                arr1.add(i);
+            }
+            Collections.sort(arr1);
             // Print the map here in this form
             // a: [a, able, aardvark]
-            . . .
+            for(Character i: arr1){
+                System.out.println(i+" "+mapfirst.get(i)); 
+            }
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);
