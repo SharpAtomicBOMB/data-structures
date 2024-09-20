@@ -60,14 +60,28 @@ public class ToDoList
     public void addTask(String optionStr)
     {
         // Complete this method
+
         int firstspace = optionStr.indexOf(" ");
         optionStr = optionStr.substring(firstspace+1);
         int secondspace = optionStr.indexOf(" ");
 
         String prioritynum = optionStr.substring(0,secondspace);
+        boolean error = false;
+        try {
+            int realpriority = Integer.parseInt(prioritynum);
+        } catch (Exception e ) {
+            System.out.println("Invalid task");
+            error = true;
+        }
+        if(error==false){
+            System.out.println("A");
         int realpriority = Integer.parseInt(prioritynum);
+            
+
         String ds = optionStr.substring(secondspace+1);
         toDo.add(new Task(realpriority, ds));
+        }
+        
         
             
     }
