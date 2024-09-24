@@ -1,42 +1,53 @@
 import java.util.Scanner;
 import java.util.Stack;
-//accidentally deleted everything so ill just write my own comments in
-public class SentenceReverser{
+
+/**
+ * Class for reversing the order of a sentence.
+*/
+public class SentenceReverser
+{
     /**
-     *  @param sentence
-     * @return reversed sentence
-     */
-    public static String reverse(String sentence){
-        Scanner scanner = new Scanner(sentence);
-        Stack<String> stack = new Stack<>();
-        String reversedSentence = "";
-        while(scanner.hasNext()){
-            String word = scanner.next();
-            stack.push(word.toLowerCase());
-            if(word.endsWith(".")){
-                String lastword = stack.pop();
-                lastword = lastword.substring(0, lastword.length()-1);
-                stack.push(lastword);
-                String temporary = "";
-                while(!stack.isEmpty()){
-                    String current = stack.pop();
-                    if(temporary.isEmpty()){
-                        current = current.substring(0,1).toUpperCase()+current.substring(1);
+     * Reverses the given sentence.
+     *
+     * @param to be reversed.
+     * @return reversed sentence.
+    */
+    public static String reverse(String sentence)
+    {
+    	Scanner scanner = new Scanner(sentence);
+        // Complete this method. Use a Stack.
 
+        Stack<String> sStack =new Stack<String>(); 
+        String revword = new String(""); 
+
+        while (scanner.hasNext())
+        {
+            String temporary = scanner.next();
+            sStack.push(temporary);
+
+            if(temporary.contains("."))
+            {
+                for (int i  = 0; i < sStack.size();){
+                    String stackword = sStack.pop(); 
+                   
+                    if (stackword.substring(stackword.length()-1).equals(".")){
+                        stackword = stackword.substring(0, stackword.length()-1);
+                        stackword = stackword.substring(0,1).toUpperCase() + stackword.substring(1);  
                     }
-                    temporary += current;
-                    if(!stack.isEmpty()){
-                        temporary += " ";
+
+                    if (i == sStack.size()){
+                        stackword = stackword.substring(0,1).toLowerCase() + stackword.substring(1);  
+                        stackword = stackword + ".";
                     }
-                    stack.clear();
+
+
+                    revword = revword + " " + stackword;  
                 }
-            
-            }
-            scanner.close();
-            
-        }
-        return reversedSentence.trim();
 
+                sStack.clear(); 
+            }
+        }
+        scanner.close();
+        return revword;
     }
-   
 }
