@@ -34,58 +34,51 @@ public class SudokuSolver {
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open: " + fileName);
         }
-        for (int i = 0; i< grid.length;i++)
-        {
-            for(int j = 0 ;j < grid[0].length;j++){
-                    System.out.print(grid[i][j]+ " ");
-            }    
-            System.out.println();
-        }  
-        // create the list of sets for each row (this.rows)
-        // ...
-
+        
         this.rows = new ArrayList<>();
-        for (int i = 0; i< grid.length;i++)
-        {
-            Set<Integer> row = new TreeSet<>();
-            for(int j = 0 ;j < grid[0].length;j++){
-                    row.add(grid[i][j]);
-            }    
-            this.rows.add(row);
-        }  
-
-        // create the list of sets for each col (this.cols)
-        // ...
         this.cols = new ArrayList<>();
-        for (int i = 0; i< grid.length;i++)
-        {
-            Set<Integer> col = new TreeSet<>();
-            for(int j = 0 ;j < grid[0].length;j++){
-                    col.add(grid[j][i]);
-            }    
-            this.cols.add(col);
-        }  
+        this.squares = new ArrayList<>();
+
+        //making the list of sets for all the rows
+        for(int i = 0; i < 9; i++){
+            Set<Integer> row2 = new HashSet<Integer>();
+            for(int j = 0; j<9;j++){
+                row2.add(grid[i][j]);
+            }
+            this.rows.add(row2);
+        }
+
+        //making the list of sets for all the columns
+        for (int i = 0; i < 9; i++){
+            Set<Integer> col2 = new HashSet<Integer>();
+            for(int j = 0; j < 9; j++){
+                col2.add(grid[j][i]);
+            }
+            cols.add(col2);
+        }
         // create the list of sets for each square (this.squares)
         /* the squares are added to the list row-by-row:
             0 1 2
             3 4 5
             6 7 8
          */
-        // ...
-        this.squares = new ArrayList<>();
-        for (int sq = 0; sq<3 ;sq++){
-          for (int i = 0; i< grid.length;i+=3)
-          {
-            Set<Integer> col = new TreeSet<>();
-            for(int j = sq ;j < grid[0].length/3;j++){
-                System.out.println(grid[j][i]);
-                    col.add(grid[j][i]);
-            }    
-            this.squares.add(col);
-          }  
+        for(int firstx= 0; firstx < 9; firstx+=3){
+            for(int firsty = 0; firsty < 9; firsty += 3){
+                Set<Integer> sqSet = new HashSet<Integer>();
+                for(int i = 0; i < 3; i++){
+                    for(int j = 0; j < 3; j++){
+                        sqSet.add(grid[firstx+i][firsty+j]);
+                    }
+                }
+                this.squares.add(sqSet);
+            }
         }
+        
         // create a hash set for [1..9] (this.nums)
-        // ...
+        this.nums = new HashSet<Integer>();
+        for(int i = 1; i <= 9; i++){
+            this.nums.add(i);
+        }
 
         // visually inspect that all the sets are correct
         for (int row = 0; row < N; row++) {
