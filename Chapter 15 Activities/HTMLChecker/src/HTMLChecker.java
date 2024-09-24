@@ -17,15 +17,41 @@ public class HTMLChecker
 {
     public static void main(String[] args)
     {
-        String filename = "src/TagSample1.html";
+        String filename = "Chapter 15 Activities/HTMLChecker/src/TagSample1.html";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
             // Your code goes here
-            . . .
+            Stack<String> stacktag = new Stack<>();
+            boolean checkTags = true;
+            while(in.hasNext()){
+                String tag = in.next();
+                if(!tag.substring(0,2).equals("</")){
+                    stacktag.push(tag);
+                }
+                else{
+                    if(stacktag.isEmpty()){
+                        System.out.println("Nesting Invalid. ");
+                        checkTags = false;
+                        break;
+                    }
+                    String end = stacktag.pop();
+                    if(!end.substring(1).equals(tag.substring(2))){
+                        checkTags = false;
+                        break;
+                    }
+                }
+                System.out.println(stacktag);
+            }
+            if(checkTags && stacktag.isEmpty()){
+                System.out.println("Nesting is valid.");
+            }
+            else{
+                System.out.println("Nesting is invald.");
+            }
+               
 
-
-        } catch (FileNotFoundException e)
+        }catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);
         }
