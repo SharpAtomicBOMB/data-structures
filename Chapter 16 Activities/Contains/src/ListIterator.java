@@ -11,14 +11,14 @@ public interface ListIterator
         @return the traversed element
     */
     Object next();
-
+        
     /**
         Tests if there is an element after the iterator 
         position.
         @return true if there is an element after the iterator 
         position
     */
-    boolean hasNext();
+
 
     /**
         Adds an element before the iterator position
