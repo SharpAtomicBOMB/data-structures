@@ -30,7 +30,7 @@ public class LinkedList
             return 0;
         }
         else{
-            return(1+size(start.next));
+            return 1+size(start.next);
         }
     }
 
