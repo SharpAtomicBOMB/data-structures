@@ -114,4 +114,9 @@ public class BinaryTree
         subtree.root = this.root.right;
         return subtree;
     }
+
+    public String countNodesWithOneChild() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'countNodesWithOneChild'");
+    }
 }

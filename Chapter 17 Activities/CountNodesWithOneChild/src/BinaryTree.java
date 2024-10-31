@@ -1,4 +1,4 @@
-//HIDE
+
 /**
     A binary tree in which each node has two children.
 */
@@ -22,6 +22,8 @@ public class BinaryTree
         root.left = null;
         root.right = null;
     }
+
+    
 
     /**
         Constructs a binary tree.
@@ -52,6 +54,32 @@ public class BinaryTree
         public Node right;
     }
 
+
+    public int countNodesWithOneChild(Node n){
+        {
+           
+            int count = 0;
+
+            if(n == null){
+                return 0;
+            }
+            if((n.left != null && n.right == null) || (n.left == null && n.right != null)){
+              count = 1;  
+            }
+            count += countNodesWithOneChild(n.left);
+            count += countNodesWithOneChild(n.right);
+
+
+
+            
+            return count;
+        }
+    }
+
+    public int countNodesWithOneChild() {
+        return countNodesWithOneChild(root);
+    }
+    
     /**
         Returns the height of the subtree whose root is the given node.
         @param n a node or null
