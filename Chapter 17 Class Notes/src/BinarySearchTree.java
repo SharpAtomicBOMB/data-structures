@@ -12,7 +12,8 @@ public class BinarySearchTree
     */
     public BinarySearchTree()
     {   
-        
+        this.root = null;
+
     }
     
     /**
@@ -21,7 +22,19 @@ public class BinarySearchTree
     */
     public void add(Comparable obj) 
     {   
-        
+        Node newNode = new Node();
+        newNode.data = obj;
+        newNode.left = null;
+        newNode.right = null;
+
+
+        if(this.root == null){
+            this.root = newNode;
+        }
+        else{
+            this.root.addNode(newNode);
+
+        }
     }
 
     /**
@@ -31,6 +44,22 @@ public class BinarySearchTree
     */
     public boolean find(Comparable obj)
     {
+        Node current = this.root;
+        while(current != null){
+            int diff = obj.compareTo(current.data);
+            if(diff == 0){
+                return true;
+            }
+            else if(diff < 0){
+                current = current.left;
+            }
+            else{
+                current = current.right;
+
+            }
+        }
+        //if the loop doesnt find the value then it returns false
+
         return false;
     }
     
@@ -41,8 +70,49 @@ public class BinarySearchTree
     */
     public void remove(Comparable obj)
     {
-        
+        Node toBeRemoved = this.root;
+        Node parent = null;
+        boolean found = false;
+
+        while(!found && toBeRemoved != null){
+            int diff = obj.compareTo(toBeRemoved.data);
+            if(diff == 0){
+                found = true;
+            }
+            else{
+                parent = toBeRemoved;
+                if(diff < 0){
+                    toBeRemoved = toBeRemoved.left;
+                }
+                else{
+                    toBeRemoved = toBeRemoved.right;
+
+                }
+            }
+        }
+        //if we didnt find anything just return since its a void method
+        if(!found){
+            return;
+        }
+        // Case 1 and Case 2 (At least one child is null
+        if(toBeRemoved.left == null || toBeRemoved.right == null){
+            Node newChild;
+            if(toBeRemoved.left == null){
+                newChild = toBeRemoved.right;
+            }
+            else{
+                newChild = toBeRemoved.left;
+
+            }
+            //Remove the root if the parent is null
+            if(parent == null){
+                this.root = newChild;
+                
+
+            }
+        }
     }
+
     
     /**
         Prints the contents of the tree in sorted order.
@@ -67,7 +137,11 @@ public class BinarySearchTree
     */
     static class Node
     {   
-        
+        // A Binary Search Tree MUST BE made up of Comparable Objects
+        public Comparable data;
+        public Node left;
+        public Node right;
+
 
         /**
             Inserts a new node as a descendant of this node.
@@ -75,7 +149,31 @@ public class BinarySearchTree
         */
         public void addNode(Node newNode)
         {   
-            
+            //If diff is less than 0, newNode is left of this node
+            //If diff is greater than 0, newNode is right of this node
+            int diff = newNode.data.compareTo(data);
+
+            if(diff < 0){
+                if(left == null){
+                    left = newNode;
+                }
+                else{
+                    left.addNode(newNode);
+                }
+            }
+            //else if ensures we dont add a duplicate Node
+            else if(diff > 0){
+                if(right == null){
+                    right = newNode;
+                }
+                else{
+                    right.addNode(newNode);
+                }
+                
+            }
+
+
+
         }
     }
 }
