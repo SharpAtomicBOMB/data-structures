@@ -94,7 +94,7 @@ public class BinarySearchTree
         if(!found){
             return;
         }
-        // Case 1 and Case 2 (At least one child is null
+        // Case 1 and Case 2 (At least one child is null)
         if(toBeRemoved.left == null || toBeRemoved.right == null){
             Node newChild;
             if(toBeRemoved.left == null){
@@ -107,9 +107,35 @@ public class BinarySearchTree
             //Remove the root if the parent is null
             if(parent == null){
                 this.root = newChild;
-                
 
             }
+            else{
+                parent.right = newChild;
+            }
+            return;
+
+        }
+        //case 3: Remove a node with two children
+        //Find the least element of the right subtree
+        Node leastParent = toBeRemoved;
+        //go down the right subtree
+        Node least = toBeRemoved.right;
+        //Go into the right subtree and keep going to the left until I find the smallest element in the subtree which is null
+        //The least element will replace the removed node
+        while(least.left != null){
+            leastParent = least;
+            least = least.left;
+        }
+
+        //Move the data to the Node being removed
+        toBeRemoved.data = least.data;
+        //Unlink the least child
+        if(leastParent == toBeRemoved){
+            leastParent.right = least.right;
+        }
+        else{
+            leastParent.left = least.right;
+
         }
     }
 
@@ -119,7 +145,9 @@ public class BinarySearchTree
     */
     public void print()
     {   
-        
+        //print the tree using inorder traversal
+        print(this.root);
+        System.out.println();
     }   
 
     /**
@@ -127,9 +155,17 @@ public class BinarySearchTree
         @param parent the root of the subtree to print
     */
     private static void print(Node parent)
-    {   
-        
+    {   //reached basecase
+        if(parent == null){
+            return;
+        }
+        print(parent.left);
+        System.out.println(parent.data + " "); 
+        print(parent.right);
+
     }
+
+
 
     /**
         A node of a tree stores a data item and references
