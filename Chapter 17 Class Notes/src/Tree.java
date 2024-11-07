@@ -100,19 +100,33 @@ public class Tree
             }
         }
 
-        
-
-    public void depthFirst(Visitor v){
-        depthFirst(root,v);
-    }
-    public void depthFirst(Node current,Visitor v){
-        System.out.println(current.data);
-        if(current.children.size()!=0){
+    public void postorder(Visitor V){
+        Tree.preorder(this.root,V);
+    } 
+    private static void postorder(Node n, Visitor v){
+        if(n.children.size() == 0){
+            System.out.println(n.data);
             return;
         }
-        v.visit(current.data);
+        v.visit(n.data);
+    
+        for(Node child:n.children){
+        Tree.preorder(child,v);
+        }
+        System.out.println(n.data);
+        return;
+    }
+    public void depthFirst(){
+        depthFirst(root);
+    }
+    public void depthFirst(Node current){
+        System.out.println(current.data);
+        if(current.children.size()==0){
+            return;
+        }
+
             for(Node child: current.children){
-                depthFirst(child,v);
+                depthFirst(child);
             }
         }
         }
