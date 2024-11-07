@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
     Add a method void depthFirst(Visitor v) to the Tree class of
@@ -65,4 +65,23 @@ public class Tree
     }
 
     // Additional methods will be added in later sections.
-}
+    public interface Visitor{
+        void visit(Object data);
+    }
+
+
+
+    private void depthFirst(Visitor v){
+        depthFirst(root,v);
+    }
+    private void depthFirst(Node current,Visitor v){
+        System.out.println(current.data);
+        if(current.children.size()!=0){
+            return;
+        }
+        v.visit(current.data);
+            for(Node child: current.children){
+                depthFirst(child,v);
+            }
+        }
+        }

@@ -99,4 +99,21 @@ public class Tree
                 
             }
         }
-}
+
+        
+
+    public void depthFirst(Visitor v){
+        depthFirst(root,v);
+    }
+    public void depthFirst(Node current,Visitor v){
+        System.out.println(current.data);
+        if(current.children.size()!=0){
+            return;
+        }
+        v.visit(current.data);
+            for(Node child: current.children){
+                depthFirst(child,v);
+            }
+        }
+        }
+
