@@ -62,6 +62,25 @@ public class Tree
         if (root == null) { return 0; }
         else { return root.size(); }
     }
+    //countes the leaves that are in the subtree whose root are in this node
+    public int countLeaves(){
+        if(children.isEmpty()){
+            return 1;
+        }
+        int leafCount = 0;
+        for(Node child : children){
+            leafCount += child.countLeaves();
+        }
+        return leafCount;
+    }
 
-    // Additional methods will be added in later sections.
+    //this counts the number of the leaves inside of the tree
+    public int leafCount(){
+        if(root==null){
+            return 0;
+        }
+        else{
+            return root.countLeaves();
+        }
+    }
 }
